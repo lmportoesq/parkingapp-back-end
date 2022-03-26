@@ -143,3 +143,21 @@ const parkings = [
     },
   },
 ];
+
+function getAllParkings() {
+  return parkings;
+}
+
+function getOneParking(id) {
+  const parking = parkings.find((parkings) => parkings.id === Number(id));
+
+  if (!parking) {
+    return null;
+  }
+  return parking;
+}
+
+module.exports = {
+  getAllParkings,
+  getOneParking,
+}

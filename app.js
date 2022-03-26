@@ -12,13 +12,6 @@ routes(app);
 app.use(express.json());
 app.use(morgan('dev'));
 
-const parkings = [
-  {
-    name: 'El calidoso',
-    value: 2500,
-  },
-];
-
 const port = process.env.PORT || 3030;
 
 app.listen(port, () => {
