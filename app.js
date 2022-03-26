@@ -3,7 +3,11 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 
+const routes = require('./routes');
+
 const app = express();
+
+routes(app);
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -14,10 +18,6 @@ const parkings = [
     value: 2500,
   },
 ];
-
-app.get('/info', (req, res) => {
-  res.send('<h1>Hello server parkingapp</h1>');
-});
 
 const port = process.env.PORT || 3030;
 
