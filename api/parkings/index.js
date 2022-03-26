@@ -1,9 +1,8 @@
 const { Router } = require('express');
+const { index } = require('./parkings.controller');
 
 const router = Router();
 
-router.get('/', (req, res) => { // '/' path of parkings folder
-  res.send('<h1>Hello server parkingapp</h1>');
-});
+router.get('/', index);
 
 module.exports = router;
