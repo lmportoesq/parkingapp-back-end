@@ -1,4 +1,4 @@
-//const res = require('express/lib/response');
+// const res = require('express/lib/response');
 
 const {
   getAllParkings,
@@ -36,9 +36,17 @@ function handlerDeleteParking(req, res) {
 
 async function handlerCreateParking(req, res) {
   const newParking = req.body;
-  const parking = await createParking(newParking);
 
-  res.status(201).json(parking);
+  try {
+    const parking = await createParking(newParking);
+    res.status(201).json(parking);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+function handlerUpdateParking(req, res) {
+  res.status(501).json({ message: 'In construction' });
 }
 
 module.exports = {
@@ -46,4 +54,5 @@ module.exports = {
   handlerOneParking,
   handlerDeleteParking,
   handlerCreateParking,
+  handlerUpdateParking,
 };

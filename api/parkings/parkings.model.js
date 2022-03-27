@@ -1,13 +1,28 @@
 const mongoose = require('mongoose');
 
 const ParkingSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+    uppercase: true,
+    unique: true,
+  },
   idciudad: Number,
-  addres: String,
+  addres: {
+    type: String,
+    required: true,
+    trim: true,
+    lowercase: true,
+    unique: true,
+  },
   tel: Number,
   mean: Number,
   value: Number,
   coords: Object,
+}, {
+  timestamps: true,
+  versionKey: false,
 });
 
 const Parking = mongoose.model('Parking', ParkingSchema);

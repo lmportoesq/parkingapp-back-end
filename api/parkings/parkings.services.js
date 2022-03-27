@@ -26,13 +26,14 @@ function createParking(newParking) {
   return parking;
 }
 
-// function updateParking(id, parking){
-//   return parking;
-// }
+function updateParking(id, parking) {
+  return parking;
+}
 
 module.exports = {
   getAllParkings,
   getOneParking,
   deleteParking,
   createParking,
+  updateParking,
 };
