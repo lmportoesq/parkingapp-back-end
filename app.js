@@ -11,7 +11,7 @@ const app = express();
 configExpress(app);
 routes(app);
 
-const url = 'mongodb+srv://jlopezsa:veU1RfOrAevnUwSh@julianlopez.teizv.mongodb.net/ParkingApp?retryWrites=true&w=majority';
+const url = process.env.MONGO_DB_URI;
 mongoose.connect(url);
 
 const ParkingSchema = new mongoose.Schema({
@@ -39,7 +39,10 @@ const parking = new Parking({
   },
 });
 
-parking.save();
+parking.save()
+.then((result) => {
+  console.log('Parking saved', result);
+}).catch();
 
 const port = process.env.PORT || 3030;
 
