@@ -1,17 +1,18 @@
 require('dotenv').config();
 
 const express = require('express');
-const mongoose = require('mongoose');
 
 const configExpress = require('./config/express');
+const connectDB = require('./config/database');
 const routes = require('./routes');
 
 const app = express();
 
+connectDB();
 configExpress(app);
 routes(app);
 
-const url = process.env.MONGO_DB_URI;
+/*const url = process.env.MONGO_DB_URI;
 mongoose.connect(url);
 
 const ParkingSchema = new mongoose.Schema({
@@ -43,6 +44,7 @@ parking.save()
 .then((result) => {
   console.log('Parking saved', result);
 }).catch();
+*/
 
 const port = process.env.PORT || 3030;
 
