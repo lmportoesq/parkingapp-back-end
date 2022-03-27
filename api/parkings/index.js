@@ -5,7 +5,7 @@ const {
   handlerDeleteParking,
   handlerCreateParking,
   handlerUpdateParking,
- } = require('./parkings.controller');
+} = require('./parkings.controller');
 
 const router = Router();
 
