@@ -1,16 +1,20 @@
+//const res = require('express/lib/response');
+
 const {
   getAllParkings,
   getOneParking,
-} = require ('./parkings.services');
+  deleteParking,
+  createParking,
+} = require('./parkings.services');
 
-function handlerAllParkings(req, res) {
-  const parkings = getAllParkings();
+async function handlerAllParkings(req, res) {
+  const parkings = await getAllParkings();
   res.json(parkings);
 }
 
-function handlerOneParking(req, res) {
+async function handlerOneParking(req, res) {
   const { id } = req.params;
-  const parking = getOneParking(id);
+  const parking = await getOneParking(id);
 
   if (!parking) {
     res.status(404).json({ message: `Parking not found with id ${id}` });
@@ -19,7 +23,27 @@ function handlerOneParking(req, res) {
   }
 }
 
+function handlerDeleteParking(req, res) {
+  const { id } = req.params;
+  const parking = deleteParking(id);
+
+  if (!parking) {
+    res.status(404).json({ message: `Task not found with id: ${id}, it was not delete` });
+  } else {
+    res.json(parking);
+  }
+}
+
+async function handlerCreateParking(req, res) {
+  const newParking = req.body;
+  const parking = await createParking(newParking);
+
+  res.status(201).json(parking);
+}
+
 module.exports = {
   handlerAllParkings,
   handlerOneParking,
+  handlerDeleteParking,
+  handlerCreateParking,
 };
