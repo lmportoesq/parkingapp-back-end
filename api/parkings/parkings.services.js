@@ -60,6 +60,7 @@ function updateParking(id, newInfo) {
 }
 */
 
+
 module.exports = {
   getAllParkings,
   getOneParking,

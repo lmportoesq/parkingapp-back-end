@@ -7,6 +7,7 @@ const {
   //handlerUpdateParking,
 } = require('./parkings.controller');
 
+
 const router = Router();
 
 router.get('/', handlerAllParkings);

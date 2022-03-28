@@ -30,6 +30,7 @@ async function handlerDeleteParking(req, res) {
 
   if (!parking) {
     res.status(404).json({ message: `Parking not found with id: ${id}, it was not delete` });
+
   } else {
     res.json(parking);
   }
