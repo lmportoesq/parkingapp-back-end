@@ -5,6 +5,7 @@ const {
   getOneParking,
   deleteParking,
   createParking,
+  updateParking,
 } = require('./parkings.services');
 
 async function handlerAllParkings(req, res) {
@@ -23,12 +24,12 @@ async function handlerOneParking(req, res) {
   }
 }
 
-function handlerDeleteParking(req, res) {
+async function handlerDeleteParking(req, res) {
   const { id } = req.params;
-  const parking = deleteParking(id);
+  const parking = await deleteParking(id);
 
   if (!parking) {
-    res.status(404).json({ message: `Task not found with id: ${id}, it was not delete` });
+    res.status(404).json({ message: `Parking not found with id: ${id}, it was not delete` });
   } else {
     res.json(parking);
   }
@@ -46,7 +47,25 @@ async function handlerCreateParking(req, res) {
 }
 
 function handlerUpdateParking(req, res) {
-  res.status(501).json({ message: 'In construction' });
+  const { newInfo } = req;
+  const { id } = req.params;
+  try {
+    const parking = updateParking(id, newInfo);
+    res.status(201).json(parking);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+  //--------------
+  // const id = req.params.id;
+  // const { body } = req;
+
+  // const task = updateTask(id, body);
+
+  // if (!task) {
+  //   res.status(404).json({ message: `Task not found with id: ${id}` });
+  // } else {
+  //   res.json(task);
+  // }
 }
 
 module.exports = {
