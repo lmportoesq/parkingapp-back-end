@@ -5,7 +5,7 @@ const {
   handlerDeleteUser,
   handlerCreateUser,
   handlerUpdateUser,
- } = require('./users.controller');
+} = require('./users.contoller');
 
 const router = Router();
 

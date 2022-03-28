@@ -14,8 +14,6 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     uppercase: true,
   },
-  timestamps: true,
-  versionKey: false,
 });
 
 module.exports = mongoose.model('User', UserSchema);
