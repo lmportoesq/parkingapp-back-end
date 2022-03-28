@@ -1,5 +1,10 @@
 const usersModel = require('./users.model');
 
+function createUser(newUser) {
+  const user = usersModel.create(newUser);
+  return user;
+}
+
 function getAllUsers() {
   return usersModel.find({});
 }
@@ -21,12 +26,11 @@ function deleteUser(id) {
   return user;
 }
 
-function createUser(newUser) {
-  const user = usersModel.create(newUser);
-  return user;
-}
-
-function updateUser(id, user) {
+function updateUser(id) {
+  const user = usersModel.findOneAndUpdate(id);
+  if (!user) {
+    return null;
+  }
   return user;
 }
 
