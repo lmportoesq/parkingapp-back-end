@@ -6,7 +6,7 @@ const ParkingSchema = new mongoose.Schema({
     required: true,
     trim: true,
     uppercase: true,
-    unique: true,
+    unique: false,
   },
   idciudad: Number,
   addres: {

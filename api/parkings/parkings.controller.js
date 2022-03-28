@@ -5,7 +5,7 @@ const {
   getOneParking,
   deleteParking,
   createParking,
-  updateParking,
+  //updateParking,
 } = require('./parkings.services');
 
 async function handlerAllParkings(req, res) {
@@ -46,6 +46,7 @@ async function handlerCreateParking(req, res) {
   }
 }
 
+/*
 function handlerUpdateParking(req, res) {
   const { newInfo } = req;
   const { id } = req.params;
@@ -67,11 +68,12 @@ function handlerUpdateParking(req, res) {
   //   res.json(task);
   // }
 }
+*/
 
 module.exports = {
   handlerAllParkings,
   handlerOneParking,
   handlerDeleteParking,
   handlerCreateParking,
-  handlerUpdateParking,
+  // handlerUpdateParking,
 };

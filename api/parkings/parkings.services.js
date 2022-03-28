@@ -1,4 +1,4 @@
-const req = require('express/lib/request');
+//const req = require('express/lib/request');
 const ParkingsModel = require('./parkings.model');
 
 function getAllParkings() {
@@ -28,6 +28,7 @@ function createParking(newParking) {
   return parking;
 }
 
+/*
 function updateParking(id, newInfo) {
   let oldParking = ParkingsModel.findById(id);
   console.log('-------> FLAG-01', id);
@@ -57,11 +58,12 @@ function updateParking(id, newInfo) {
   // }
   // return parking;
 }
+*/
 
 module.exports = {
   getAllParkings,
   getOneParking,
   deleteParking,
   createParking,
-  updateParking,
+  // updateParking,
 };
