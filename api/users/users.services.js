@@ -1,7 +1,7 @@
 const usersModel = require('./users.model');
 
 function getAllUsers() {
-  return usersModel.find();
+  return usersModel.find({});
 }
 
 async function getOneUser(id) {
