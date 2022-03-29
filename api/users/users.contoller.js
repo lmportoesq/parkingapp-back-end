@@ -44,13 +44,13 @@ function handlerDeleteUser(req, res) {
 }
 
 async function handlerUpdateUser(req, res) {
-  const newUser = req.body;
-  try {
-    const user = await handlerUpdateUser(newUser);
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(500).json(error);
-  }
+  const id = req.params.id;
+  const { body } = req;
+  const user = updateUser(id, body);
+  if (!user) {
+    res.status(404).json({ message: `User not found with id: ${id}` });
+  } else {
+    res.json(user);
 }
 
 module.exports = {
@@ -59,4 +59,4 @@ module.exports = {
   handlerDeleteUser,
   handlerCreateUser,
   handlerUpdateUser,
-};
+}

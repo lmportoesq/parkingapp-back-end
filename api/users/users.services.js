@@ -26,11 +26,24 @@ function deleteUser(id) {
   return user;
 }
 
-function updateUser(id) {
-  const user = usersModel.findOneAndUpdate(id);
-  if (!user) {
+function updateUser(id, user) {
+  // eslint-disable-next-line no-shadow
+  const oldUser = usersModel.find((user) => user.id === Number(id));
+
+  if (!oldUser) {
     return null;
   }
+
+  // eslint-disable-next-line no-shadow
+  usersModel.forEach((oldUser) => {
+    if (oldUser.id === Number(id)) {
+      // eslint-disable-next-line no-param-reassign
+      oldUser.email = user.email;
+      // eslint-disable-next-line no-param-reassign
+      oldUser.password = user.password;
+    }
+  });
+
   return user;
 }
 
