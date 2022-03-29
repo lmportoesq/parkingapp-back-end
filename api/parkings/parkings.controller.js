@@ -14,7 +14,6 @@ async function handlerAllParkings(req, res) {
 async function handlerOneParking(req, res) {
   const { id } = req.params;
   const parking = await getOneParking(id);
-
   if (!parking) {
     res.status(404).json({ message: `Parking not found with id ${id}` });
   } else {
@@ -25,7 +24,6 @@ async function handlerOneParking(req, res) {
 async function handlerDeleteParking(req, res) {
   const { id } = req.params;
   const parking = await deleteParking(id);
-
   if (!parking) {
     res.status(404).json({ message: `Parking not found with id: ${id}, it was not delete` });
   } else {
@@ -35,7 +33,6 @@ async function handlerDeleteParking(req, res) {
 
 async function handlerCreateParking(req, res) {
   const newParking = req.body;
-
   try {
     const parking = await createParking(newParking);
     res.status(201).json(parking);

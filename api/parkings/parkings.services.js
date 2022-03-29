@@ -6,7 +6,6 @@ function getAllParkings() {
 
 async function getOneParking(id) {
   const parking = await ParkingsModel.findById(id);
-
   if (!parking) {
     return null;
   }
@@ -15,7 +14,6 @@ async function getOneParking(id) {
 
 async function deleteParking(id) {
   const parking = await ParkingsModel.findByIdAndDelete(id);
-
   if (!parking) {
     return null;
   }
@@ -31,7 +29,6 @@ async function updateParking(id, newInfo) {
   const updateInfo = await ParkingsModel.findByIdAndUpdate(id, newInfo, {
     returnOriginal: false,
   });
-
   if (!updateInfo) {
     return null;
   }
