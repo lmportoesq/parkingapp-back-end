@@ -8,7 +8,9 @@ const ParkingSchema = new mongoose.Schema({
     uppercase: true,
     unique: false,
   },
-  idciudad: Number,
+  idciudad: {
+    type: Number,
+  },
   addres: {
     type: String,
     required: true,
@@ -16,9 +18,19 @@ const ParkingSchema = new mongoose.Schema({
     lowercase: true,
     unique: true,
   },
-  tel: Number,
-  mean: Number,
-  value: Number,
+  tel: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  mean: {
+    type: Number,
+  },
+  value: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
   coords: Object,
 }, {
   timestamps: true,

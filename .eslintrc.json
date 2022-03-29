@@ -12,7 +12,7 @@
     },
     "rules": {
       "react/jsx-filename-extension": [
-        1,
+        0,
         {
           "extensions": [
             ".js",
