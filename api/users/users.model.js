@@ -33,8 +33,8 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: 'viewer',
-    enum: ['company', 'admin', 'maker', 'viewer'],
+    default: 'user',
+    enum: ['admin', 'maker', 'user'],
     required: true,
   },
   passwordResetToken: String,

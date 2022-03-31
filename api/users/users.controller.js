@@ -5,6 +5,7 @@ const {
   getUserByEmail,
   getUserById,
   updateUser,
+  deleteUser,
 } = require('./users.services');
 
 async function handlerCreateUser(req, res) {
@@ -56,10 +57,23 @@ async function handlerUpdateUser(req, res) {
   return res.status(200).json(user);
 }
 
+async function handlerDeleteUser(req, res) {
+  const { id } = req.body;
+  console.log('Id enviado es ',id);
+  const user = await deleteUser(id);
+
+  if (!user) {
+    return res.status(404);
+  }
+
+  return res.status(200).json({message:'Usuario fue eliminado...!'});
+}
+
 module.exports = {
   handlerCreateUser,
   handlerGetAllUsers,
   handlerGetUserByEmail,
   handlerGetOneUser,
   handlerUpdateUser,
+  handlerDeleteUser,
 };
