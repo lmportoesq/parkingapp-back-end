@@ -1,62 +1,51 @@
 const {
-  getAllUsers,
-  getOneUser,
-  deleteUser,
   createUser,
+  getAllUsers,
+  getUserByEmail,
+  getUserById,
 } = require('./users.services');
 
 async function handlerCreateUser(req, res) {
   const newUser = req.body;
-
   try {
     const user = await createUser(newUser);
+
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json(error);
   }
 }
 
-async function handlerAllUsers(req, res) {
+async function handlerGetAllUsers(req, res) {
   const users = await getAllUsers();
-  res.json(users);
+
+  res.status(201).json(users);
 }
 
-async function handlerOneUser(req, res) {
-  const { id } = req.params.id;
-  const user = await getOneUser(id);
+async function handlerGetUserByEmail(req, res) {
+  const { email } = req.body;
+  const user = getUserByEmail(email);
 
   if (!user) {
-    res.status(404).json({ message: `User not found with id ${id}` });
-  } else {
-    res.json(user);
+    return res.status(404);
   }
+
+  return res.status(200).json(user);
 }
 
-function handlerDeleteUser(req, res) {
-  const { id } = req.params.id;
-  const user = deleteUser(id);
-
-  if (!user) {
-    res.status(404).json({ message: `Task not found with id: ${id}, it was not delete` });
-  } else {
-    res.json(user);
+async function handlerGetOneUser(req, res) {
+  const { id } = req.params;
+  try {
+    const user = await getUserById(id);
+    res.status(201).json(user);
+  } catch (err) {
+    res.status(400).json(err);
   }
-}
-
-async function handlerUpdateUser(req, res) {
-  const id = req.params.id;
-  const { body } = req;
-  const user = updateUser(id, body);
-  if (!user) {
-    res.status(404).json({ message: `User not found with id: ${id}` });
-  } else {
-    res.json(user);
 }
 
 module.exports = {
-  handlerAllUsers,
-  handlerOneUser,
-  handlerDeleteUser,
   handlerCreateUser,
-  handlerUpdateUser,
-}
+  handlerGetAllUsers,
+  handlerGetUserByEmail,
+  handlerGetOneUser,
+};
