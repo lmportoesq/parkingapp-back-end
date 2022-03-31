@@ -4,6 +4,7 @@ const {
   getAllUsers,
   getUserByEmail,
   getUserById,
+  updateUser,
 } = require('./users.services');
 
 async function handlerCreateUser(req, res) {
@@ -44,9 +45,22 @@ async function handlerGetOneUser(req, res) {
   }
 }
 
+async function handlerUpdateUser(req, res) {
+  const { id } = req.body;
+  const { oldUser } = req.body;
+  const user = updateUser(id,oldUser);
+
+  if (!user) {
+    return res.status(404);
+  }
+
+  return res.status(200).json(user);
+}
+
 module.exports = {
   handlerCreateUser,
   handlerGetAllUsers,
   handlerGetUserByEmail,
   handlerGetOneUser,
+  handlerUpdateUser,
 };
