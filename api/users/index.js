@@ -1,18 +1,15 @@
 const { Router } = require('express');
+
 const {
-  handlerAllUsers,
-  handlerOneUser,
-  handlerDeleteUser,
   handlerCreateUser,
-  handlerUpdateUser,
-} = require('./users.contoller');
+  handlerGetAllUsers,
+  handlerGetOneUser,
+} = require('./users.controller');
 
 const router = Router();
 
-router.get('/', handlerAllUsers);
-router.get('/:id', handlerOneUser);
-router.delete('/:id', handlerDeleteUser);
 router.post('/', handlerCreateUser);
-router.patch('/:id', handlerUpdateUser);
+router.get('/', handlerGetAllUsers);
+router.get('/:id', handlerGetOneUser);
 
 module.exports = router;
