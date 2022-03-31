@@ -1,3 +1,4 @@
+/* eslint-disable */
 const { Router } = require('express');
 
 const {
@@ -7,7 +8,6 @@ const {
 } = require('./users.controller');
 
 const router = Router();
-
 router.post('/', handlerCreateUser);
 router.get('/', handlerGetAllUsers);
 router.get('/:id', handlerGetOneUser);

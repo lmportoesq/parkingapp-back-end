@@ -1,4 +1,4 @@
-// eslint-disable-next-line react/jsx-filename-extension
+/* eslint-disable */
 const User = require('./users.model');
 
 async function createUser(user) {
