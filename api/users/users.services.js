@@ -1,56 +1,47 @@
-const usersModel = require('./users.model');
+// eslint-disable-next-line react/jsx-filename-extension
+const User = require('./users.model');
 
-function createUser(newUser) {
-  const user = usersModel.create(newUser);
+async function createUser(user) {
+  const newUser = await User.create(user);
+  return newUser;
+}
+
+async function getAllUsers() {
+  const users = await User.find({});
+  return users;
+}
+
+async function getUserById(id) {
+  const user = await User.findById(id);
   return user;
 }
 
-function getAllUsers() {
-  return usersModel.find({});
-}
-
-async function getOneUser(id) {
-  const user = await usersModel.findById(id);
-
-  if (!user) {
-    return null;
-  }
+async function findOneUser(query) {
+  const user = await User.findOne(query);
   return user;
 }
 
-function deleteUser(id) {
-  const user = usersModel.findByIdAndDelete(id);
-  if (!user) {
-    return null;
-  }
+async function getUserByEmail(email) {
+  const user = await User.findOne({ email });
   return user;
 }
 
-function updateUser(id, user) {
-  // eslint-disable-next-line no-shadow
-  const oldUser = usersModel.find((user) => user.id === Number(id));
+async function updateUser(id, user) {
+  const updatedUser = await User.findByIdAndUpdate(id, user, { new: true });
+  return updatedUser;
+}
 
-  if (!oldUser) {
-    return null;
-  }
-
-  // eslint-disable-next-line no-shadow
-  usersModel.forEach((oldUser) => {
-    if (oldUser.id === Number(id)) {
-      // eslint-disable-next-line no-param-reassign
-      oldUser.email = user.email;
-      // eslint-disable-next-line no-param-reassign
-      oldUser.password = user.password;
-    }
-  });
-
-  return user;
+async function deleteUser(id) {
+  const deletedUser = await User.findByIdAndDelete(id);
+  return deletedUser;
 }
 
 module.exports = {
-  getAllUsers,
-  getOneUser,
-  deleteUser,
   createUser,
+  deleteUser,
+  findOneUser,
+  getAllUsers,
+  getUserByEmail,
+  getUserById,
   updateUser,
 };
