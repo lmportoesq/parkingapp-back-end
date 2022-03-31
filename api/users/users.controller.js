@@ -47,9 +47,10 @@ async function handlerGetOneUser(req, res) {
 }
 
 async function handlerUpdateUser(req, res) {
-  const { id } = req.body;
-  const user = await updateUser(id);
-  console.log('Usuario retornado es ',user)
+  const { id } = req.params;
+  const newInfo=req.body;
+  const user = await updateUser(id,newInfo);
+
   if (!user) {
     return res.status(404);
   }
