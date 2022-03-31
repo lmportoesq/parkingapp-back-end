@@ -26,8 +26,8 @@ async function getUserByEmail(email) {
   return user;
 }
 
-async function updateUser(id, user) {
-  const updatedUser = await User.findByIdAndUpdate(id, user, { new: true });
+async function updateUser(id) {
+  const updatedUser = await User.findOneAndUpdate({ id },{ new: true });
   console.log(updatedUser);
   return updatedUser;
 }
