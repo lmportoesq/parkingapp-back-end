@@ -48,7 +48,7 @@ async function handlerUpdateParking(req, res) {
     const parking = await updateParking(id, newInfo);
     res.status(201).json(parking);
   } catch (error) {
-    res.status(500).json({ message: `Parking with id: ${id} can't be update` });
+    res.status(500).json({ message: `Parking with id ${id} can not be update` });
   }
 }
 

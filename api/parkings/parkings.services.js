@@ -26,9 +26,7 @@ function createParking(newParking) {
 }
 
 async function updateParking(id, newInfo) {
-  const updateInfo = await ParkingsModel.findByIdAndUpdate(id, newInfo, {
-    returnOriginal: false,
-  });
+  const updateInfo = await ParkingsModel.findByIdAndUpdate(id, newInfo, { new: true });
   if (!updateInfo) {
     return null;
   }
