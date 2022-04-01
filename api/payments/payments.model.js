@@ -4,6 +4,7 @@ const PaymentsSchema = new mongoose.Schema({
   dataPayment: {
     type: Date,
     required: true,
+    default: Date.now,
     uppercase: true,
     trim: true,
   },
@@ -11,10 +12,10 @@ const PaymentsSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-  }
+  },
 }, {
   timestamps: true,
-  versionKey: true,
+  versionKey: false,
 });
 
 module.exports = mongoose.model('Payments', PaymentsSchema);

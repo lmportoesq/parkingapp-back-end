@@ -4,4 +4,12 @@ function getAllPayments() {
   return PaymentsModdel.find();
 }
 
-module.exports = { getAllPayments };
+function createPayment(newPayment) {
+  const payment = PaymentsModdel.create(newPayment);
+  return payment;
+}
+
+module.exports = {
+  getAllPayments,
+  createPayment,
+};
