@@ -1,11 +1,9 @@
-// const res = require('express/lib/response');
-
 const {
   getAllParkings,
   getOneParking,
   deleteParking,
   createParking,
-  //updateParking,
+  updateParking,
 } = require('./parkings.services');
 
 async function handlerAllParkings(req, res) {
@@ -16,7 +14,6 @@ async function handlerAllParkings(req, res) {
 async function handlerOneParking(req, res) {
   const { id } = req.params;
   const parking = await getOneParking(id);
-
   if (!parking) {
     res.status(404).json({ message: `Parking not found with id ${id}` });
   } else {
@@ -27,18 +24,15 @@ async function handlerOneParking(req, res) {
 async function handlerDeleteParking(req, res) {
   const { id } = req.params;
   const parking = await deleteParking(id);
-
   if (!parking) {
     res.status(404).json({ message: `Parking not found with id: ${id}, it was not delete` });
-
   } else {
-    res.json(parking);
+    res.json({ message: `Parking with id: ${id} was delete` });
   }
 }
 
 async function handlerCreateParking(req, res) {
   const newParking = req.body;
-
   try {
     const parking = await createParking(newParking);
     res.status(201).json(parking);
@@ -47,34 +41,21 @@ async function handlerCreateParking(req, res) {
   }
 }
 
-/*
-function handlerUpdateParking(req, res) {
-  const { newInfo } = req;
+async function handlerUpdateParking(req, res) {
+  const newInfo = req.body;
   const { id } = req.params;
   try {
-    const parking = updateParking(id, newInfo);
+    const parking = await updateParking(id, newInfo);
     res.status(201).json(parking);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ message: `Parking with id: ${id} can't be update` });
   }
-  //--------------
-  // const id = req.params.id;
-  // const { body } = req;
-
-  // const task = updateTask(id, body);
-
-  // if (!task) {
-  //   res.status(404).json({ message: `Task not found with id: ${id}` });
-  // } else {
-  //   res.json(task);
-  // }
 }
-*/
 
 module.exports = {
   handlerAllParkings,
   handlerOneParking,
   handlerDeleteParking,
   handlerCreateParking,
-  // handlerUpdateParking,
+  handlerUpdateParking,
 };
