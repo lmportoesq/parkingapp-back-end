@@ -1,7 +1,7 @@
 const {
   getAllBookings,
   createBooking,
-} = require('./parkings.services');
+} = require('./bookings.services');
 
 async function handlerAllBookings(req, res) {
   const bookings = await getAllBookings();

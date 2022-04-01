@@ -2,12 +2,10 @@ const mongoose = require('mongoose');
 
 const BookingSchema=new mongoose.Schema({
   parking:{
-      type:Schema.ObjectId,
-      ref:"parkings",
+      type:String,
   },
   user:{
-      type:Schema.ObjectId,
-      ref:"users",
+      type:String,
   },
   market:{
       type:Number,
@@ -22,22 +20,18 @@ const BookingSchema=new mongoose.Schema({
       require:true,
   },
   startTime:{
-      type:time,
+      type:Date,
       require:true,
   },
   endTime:{
-      type:time,
+      type:Date,
       require:true,
-  },
-  place:{
-      type:String,
-      require:true,
-      trim:true,
   },
   observations:{
       type:String,
       trim:true,
-  },
+  }
+},{
   timestamps: true,
   versionKey: false,
 });
