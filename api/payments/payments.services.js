@@ -9,8 +9,8 @@ function createPayment(newPayment) {
   return payment;
 }
 
-function getOnePayment(id) {
-  const payment = PaymentsModel.findById(id);
+async function getOnePayment(id) {
+  const payment = await PaymentsModel.findById(id);
 
   if (!payment) {
     return null;
@@ -18,8 +18,26 @@ function getOnePayment(id) {
   return payment;
 }
 
+async function deletePayment(id) {
+  const payment = await PaymentsModel.findByIdAndDelete(id);
+  if (!payment) {
+    return null;
+  }
+  return payment;
+}
+
+async function updatePayment(id, newInfo) {
+  const updateInfo = await PaymentsModel.findByIdAndUpdate(id, newInfo, { new: true });
+  if (!updateInfo) {
+    return null;
+  }
+  return updateInfo;
+}
+
 module.exports = {
   getAllPayments,
   createPayment,
   getOnePayment,
+  deletePayment,
+  updatePayment,
 };

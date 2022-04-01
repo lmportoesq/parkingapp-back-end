@@ -2,6 +2,8 @@ const {
   getAllPayments,
   createPayment,
   getOnePayment,
+  deletePayment,
+  updatePayment,
 } = require('./payments.services');
 
 async function handlerAllPayments(req, res) {
@@ -31,8 +33,32 @@ async function handlerOnePayment(req, res) {
   }
 }
 
+async function handlerDeletePayment(req, res) {
+  const { id } = req.params;
+
+  const payment = await deletePayment(id);
+  if (!payment) {
+    res.status(404).json({ message: 'Payment not found' });
+  } else {
+    res.json({ message: `Payment with id ${id} was deleted` });
+  }
+}
+
+async function handlerUpdatePayment(req, res) {
+  const newInfo = req.body;
+  const { id } = req.params;
+  try {
+    const payment = await updatePayment(id, newInfo);
+    res.status(201).json(payment);
+  } catch (error) {
+    res.status(500).json({ message: `Parking with id ${id} can not be update` });
+  }
+}
+
 module.exports = {
   handlerAllPayments,
   handlerCreatePayment,
   handlerOnePayment,
+  handlerDeletePayment,
+  handlerUpdatePayment,
 };
