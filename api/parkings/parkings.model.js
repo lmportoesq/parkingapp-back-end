@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
+
 const ParkingSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -8,7 +11,7 @@ const ParkingSchema = new mongoose.Schema({
     uppercase: true,
   },
   user: {
-    type: Schema.ObjectId,
+    type: ObjectId,
     ref: 'users',
   },
   cityName: {
