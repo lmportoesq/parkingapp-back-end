@@ -33,21 +33,21 @@ const ParkingSchema = new mongoose.Schema({
     trim: true,
   },
   position: [{
-    length: {
+    latitude: {
       type: Number,
       require: true,
     },
-    latitude: {
+    longitude: {
       type: Number,
       require: true,
     },
   }],
   openTime: {
-    type: Number,
+    type: String,
     require: true,
   },
   closeTime: {
-    type: Number,
+    type: String,
     require: true,
   },
   hourValue: {
