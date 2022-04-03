@@ -6,10 +6,16 @@ const ParkingSchema = new mongoose.Schema({
     required: true,
     trim: true,
     uppercase: true,
-    unique: false,
   },
-  idciudad: {
-    type: Number,
+  user: {
+    type: Schema.ObjectId,
+    ref: 'users',
+  },
+  cityName: {
+    type: String,
+    require: true,
+    trim: true,
+    uppercase: true,
   },
   addres: {
     type: String,
@@ -18,20 +24,40 @@ const ParkingSchema = new mongoose.Schema({
     lowercase: true,
     unique: true,
   },
-  tel: {
+  phone: {
     type: Number,
     required: true,
     trim: true,
   },
-  mean: {
+  position: [{
+    length: {
+      type: Number,
+      require: true,
+    },
+    latitude: {
+      type: Number,
+      require: true,
+    },
+  }],
+  openTime: {
     type: Number,
+    require: true,
   },
-  value: {
+  closeTime: {
+    type: Number,
+    require: true,
+  },
+  hourValue: {
     type: Number,
     required: true,
-    trim: true,
   },
-  coords: Object,
+  totalPlaces: {
+    type: Number,
+    required: true,
+  },
+  busyPlaces: {
+    type: Number,
+  },
 }, {
   timestamps: true,
   versionKey: false,
