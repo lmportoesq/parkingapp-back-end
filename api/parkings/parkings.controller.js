@@ -9,7 +9,6 @@ const {
 
 async function handlerAllParkings(req, res) {
   const filterConditions = req.query;
-  console.log('---> FLAG-01', filterConditions);
   if (Object.keys(filterConditions).length === 0) {
     const parkings = await getAllParkings();
     res.json(parkings);
