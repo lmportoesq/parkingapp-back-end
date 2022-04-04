@@ -4,11 +4,18 @@ const {
   deleteParking,
   createParking,
   updateParking,
+  getParkingsByFilter,
 } = require('./parkings.services');
 
 async function handlerAllParkings(req, res) {
-  const parkings = await getAllParkings();
-  res.json(parkings);
+  const filterConditions = req.query;
+  if (Object.keys(filterConditions).length === 0) {
+    const parkings = await getAllParkings();
+    res.json(parkings);
+  } else {
+    const parkings = await getParkingsByFilter(filterConditions);
+    res.json(parkings);
+  }
 }
 
 async function handlerOneParking(req, res) {
@@ -48,7 +55,7 @@ async function handlerUpdateParking(req, res) {
     const parking = await updateParking(id, newInfo);
     res.status(201).json(parking);
   } catch (error) {
-    res.status(500).json({ message: `Parking with id: ${id} can't be update` });
+    res.status(500).json({ message: `Parking with id ${id} can not be update` });
   }
 }
 
