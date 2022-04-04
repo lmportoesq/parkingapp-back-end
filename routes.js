@@ -1,5 +1,4 @@
 const parkings = require('./api/parkings');
-
 const bookings = require('./api/bookings');
 const payments = require('./api/payments');
 const users = require('./api/users');
