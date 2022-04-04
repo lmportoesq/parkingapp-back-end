@@ -32,7 +32,7 @@ const ParkingSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  position: [{
+  position: {
     latitude: {
       type: Number,
       require: true,
@@ -41,7 +41,7 @@ const ParkingSchema = new mongoose.Schema({
       type: Number,
       require: true,
     },
-  }],
+  },
   openTime: {
     type: String,
     require: true,
