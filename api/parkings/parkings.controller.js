@@ -4,11 +4,19 @@ const {
   deleteParking,
   createParking,
   updateParking,
+  getParkingsByFilter,
 } = require('./parkings.services');
 
 async function handlerAllParkings(req, res) {
-  const parkings = await getAllParkings();
-  res.json(parkings);
+  const filterConditions = req.query;
+  console.log('---> FLAG-01', filterConditions);
+  if (Object.keys(filterConditions).length === 0) {
+    const parkings = await getAllParkings();
+    res.json(parkings);
+  } else {
+    const parkings = await getParkingsByFilter(filterConditions);
+    res.json(parkings);
+  }
 }
 
 async function handlerOneParking(req, res) {

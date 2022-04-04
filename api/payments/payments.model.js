@@ -27,6 +27,8 @@ const PaymentsSchema = new mongoose.Schema({
   methodPayment: {
     type: String,
     require: true,
+    enum: ['credit', 'cash', 'debit'],
+    default: 'debit',
   },
   statusPayment: {
     type: Boolean,

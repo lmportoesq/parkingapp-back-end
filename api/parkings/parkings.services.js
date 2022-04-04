@@ -33,10 +33,20 @@ async function updateParking(id, newInfo) {
   return updateInfo;
 }
 
+async function getParkingsByFilter(filterConditions) {
+  const { cityName } = filterConditions;
+  const parkingsFiltered = await ParkingsModel.find({ cityName });
+  if (!parkingsFiltered) {
+    return null;
+  }
+  return parkingsFiltered;
+}
+
 module.exports = {
   getAllParkings,
   getOneParking,
   deleteParking,
   createParking,
   updateParking,
+  getParkingsByFilter,
 };
