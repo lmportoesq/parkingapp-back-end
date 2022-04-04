@@ -1,15 +1,24 @@
 const mongoose = require('mongoose');
 
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
+
 const ParkingSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     trim: true,
     uppercase: true,
-    unique: false,
   },
-  idciudad: {
-    type: Number,
+  user: {
+    type: ObjectId,
+    ref: 'users',
+  },
+  cityName: {
+    type: String,
+    require: true,
+    trim: true,
+    uppercase: true,
   },
   addres: {
     type: String,
@@ -18,20 +27,40 @@ const ParkingSchema = new mongoose.Schema({
     lowercase: true,
     unique: true,
   },
-  tel: {
+  phone: {
     type: Number,
     required: true,
     trim: true,
   },
-  mean: {
-    type: Number,
+  position: {
+    latitude: {
+      type: Number,
+      require: true,
+    },
+    longitude: {
+      type: Number,
+      require: true,
+    },
   },
-  value: {
+  openTime: {
+    type: String,
+    require: true,
+  },
+  closeTime: {
+    type: String,
+    require: true,
+  },
+  hourValue: {
     type: Number,
     required: true,
-    trim: true,
   },
-  coords: Object,
+  totalPlaces: {
+    type: Number,
+    required: true,
+  },
+  busyPlaces: {
+    type: Number,
+  },
 }, {
   timestamps: true,
   versionKey: false,
