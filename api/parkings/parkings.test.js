@@ -67,67 +67,6 @@ describe('Test to api parkings endpoints', () => {
       const res = await request.post('/api/parkings').send(parking);
       expect(res.statusCode).toEqual(201);
     });
-
-    /*
-    test('should respond with a 500 when parking name is missing', async () => {
-      const parking = {
-        position: {
-          latitude: 6.244028852258511,
-          longitude: -75.57022547256459
-        },
-        cityName: "MEDELLÍN",
-        addres: "av. palacé #3",
-        phone: 3135478632,
-        openTime: "05h00m",
-        closeTime: "19h00m",
-        hourValue: 4300,
-        totalPlaces: 30,
-        busyPlaces: 0
-      }
-      const res = await request.post('/api/parkings/').send(parking);
-      expect(res.statusCode).toEqual(500);
-      expect(res.body).toEqual({
-        message: 'Parking validation failed: name: Path `name` is required.'
-      });
-    });
-    */
   })
 
 });
-
-/*
-
-
-
-describe('PATCH /parkings/:id', () => {
-  test('should respond with a 200 status code', async () => {
-    const res = await request.get('/api/parkings');
-
-    expect(res.statusCode).toEqual(200);
-  });
-})
-*/
-
-// test('should respond with an array of parkings', async () => {
-//   const res = await request.get('/api/parkings/');
-
-//   expect(res.body).toBeInstanceOf(Array);
-//   expect(res.body).toEqual(expect.arrayContaining([
-//     expect.objectContaining({
-//       position: expect.any(Object),
-//       _id: expect.any(String),
-//       name: expect.any(String),
-//       cityName: expect.any(String),
-//       addres: expect.any(String),
-//       phone: expect.any(Number),
-//       openTime: expect.any(String),
-//       closeTime: expect.any(String),
-//       hourValue: expect.any(Number),
-//       totalPlaces: expect.any(Number),
-//       busyPlaces: expect.any(Number),
-//       createdAt: expect.any(Date),
-//       updatedAt: expect.any(Date),
-//       user: expect.any(String),
-//     }),
-//   ]));
-// });
