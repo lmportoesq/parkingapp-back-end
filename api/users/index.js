@@ -15,5 +15,5 @@ router.post('/', isAuthenticated(),handlerCreateUser);
 router.get('/', handlerGetAllUsers);
 router.get('/:id', handlerGetOneUser);
 router.patch('/:id', handlerUpdateUser);
-router.delete('/:id', handlerDeleteUser);
+router.delete('/:id',hasRole(['admin']), handlerDeleteUser);
 module.exports = router;
