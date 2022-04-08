@@ -2,7 +2,7 @@
 const jsonwebtoken = require('jsonwebtoken');
 const compose = require('composable-middleware');
 
-const { getUserByEmail } = require('../api/user/user.service');
+//const { getUserByEmail } = require('../api/user/user.services');
 
 async function validateToken(token) {
   try {
@@ -74,4 +74,5 @@ function signToken(payload) {
     isAuthenticated,
     hasRole,
     signToken,
-  };
+  }
+}
