@@ -1,7 +1,5 @@
 /* eslint-disable */
 const { Router } = require('express');
-const { isAuthenticated, hasRole } = require('../../auth/auth.service');
-
 const {
   handlerCreateUser,
   handlerGetAllUsers,
@@ -9,9 +7,10 @@ const {
   handlerUpdateUser,
   handlerDeleteUser,
 } = require('./users.controller');
+const { isAuthenticated, hasRole } = require('../../auth/auth.service');
 
 const router = Router();
-router.post('/', isAuthenticated,handlerCreateUser);
+router.post('/', isAuthenticated, handlerCreateUser);
 router.get('/', handlerGetAllUsers);
 router.get('/:id', handlerGetOneUser);
 router.patch('/:id', handlerUpdateUser);
