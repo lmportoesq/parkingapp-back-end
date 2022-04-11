@@ -59,7 +59,7 @@ async function handlerUpdateUser(req, res) {
 }
 
 async function handlerDeleteUser(req, res) {
-  const { id } = req.body;
+  const { id } = req.params;
   console.log('Id enviado es ',id);
   const user = await deleteUser(id);
 
