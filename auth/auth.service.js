@@ -1,28 +1,30 @@
-/* eslint-disable*/
+/* eslint-disable */
 const jsonwebtoken = require('jsonwebtoken');
 const compose = require('composable-middleware');
 
-//const { getUserByEmail } = require('../api/user/user.services');
+const { getUserByEmail } = require('../api/users/users.services');
 
 async function validateToken(token) {
   try {
-    const payload = await jsonwebtoken.verify(token, 'my_secret123');
+    const payload = await jsonwebtoken.verify(token, 'secret_token123');
     return payload;
   } catch (error) {
-    console.log('🚀 ~ file: auth.service.js ~ line 13 ~ validateToken ~ error', error);
+
     return null;
   }
 }
 
 function isAuthenticated() {
-  //return compose().use(
+  return compose().use(
     async (req, res, next) => {
       // 1. req.headers -> authorization
       const authHeader = req.headers.authorization;
       // 2. If (authHeader)
       if (!authHeader) {
+        console.log('No existe autenticacion..')
         return res.status(401).end();
       }
+      console.log('Si existe autenticacion..')
       // 3. split para obtener el token
       const [, token] = authHeader.split(' ');
       // 4. validar el token
@@ -45,8 +47,8 @@ function isAuthenticated() {
       // 8. siga al siguiente middleware next()
       next();
       return null;
-    }
-  //);
+    },
+  );
 }
 
 function hasRole(allowRoles = []) {
@@ -66,14 +68,15 @@ function hasRole(allowRoles = []) {
 }
 
 function signToken(payload) {
-  const token = jsonwebtoken.sign(payload, 'my_secret123', {
+  const token = jsonwebtoken.sign(payload, 'secret_token123', {
     expiresIn: '2h',
   });
-  console.log(token);
 
-  module.exports = {
-    isAuthenticated,
-    hasRole,
-    signToken,
-  }
+  return token;
 }
+
+module.exports = {
+  isAuthenticated,
+  hasRole,
+  signToken,
+};
