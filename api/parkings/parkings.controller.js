@@ -51,11 +51,12 @@ async function handlerCreateParking(req, res) {
 async function handlerUpdateParking(req, res) {
   const newInfo = req.body;
   const { id } = req.params;
-  try {
-    const parking = await updateParking(id, newInfo);
+
+  const parking = await updateParking(id, newInfo);
+  if (!parking) {
+    res.status(404).json({ message: `Parking with id ${id} can not be update` });
+  } else {
     res.status(201).json(parking);
-  } catch (error) {
-    res.status(500).json({ message: `Parking with id ${id} can not be update` });
   }
 }
 
