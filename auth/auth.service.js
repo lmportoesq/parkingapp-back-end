@@ -1,4 +1,3 @@
-/* eslint-disable */
 const jsonwebtoken = require('jsonwebtoken');
 const compose = require('composable-middleware');
 
@@ -9,7 +8,6 @@ async function validateToken(token) {
     const payload = await jsonwebtoken.verify(token, 'secret_token123');
     return payload;
   } catch (error) {
-
     return null;
   }
 }
@@ -21,10 +19,9 @@ function isAuthenticated() {
       const authHeader = req.headers.authorization;
       // 2. If (authHeader)
       if (!authHeader) {
-        console.log('No existe autenticacion..')
-        return res.status(401).end();
+        return res.status(401).json({ message: 'User not authenticated' }).end();
       }
-      console.log('Si existe autenticacion..')
+
       // 3. split para obtener el token
       const [, token] = authHeader.split(' ');
       // 4. validar el token
@@ -32,14 +29,14 @@ function isAuthenticated() {
 
       // 5. if token falsy -> decir q no esta authori
       if (!payload) {
-        return res.status(401).end();
+        return res.status(401).json({ message: 'Token is not defined' }).end();
       }
 
       // 6. buscar el usuario por el email del payload del token
       const user = await getUserByEmail(payload.email);
 
       if (!user) {
-        return res.status(401).end();
+        return res.status(401).json({ message: 'Invalid email or password' }).end();
       }
 
       // 7. agregar ese usuario al req.user
@@ -59,7 +56,7 @@ function hasRole(allowRoles = []) {
       const { role } = req.user;
 
       if (!allowRoles.includes(role)) {
-        return res.status(403).send('Forbidden');
+        return res.status(403).json({ message: 'User role is not authorized' }).end();
       }
 
       next();
