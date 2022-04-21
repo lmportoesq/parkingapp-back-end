@@ -4,6 +4,7 @@ const {
   getOnePayment,
   deletePayment,
   updatePayment,
+  checkoutPayment,
 } = require('./payments.services');
 
 async function handlerAllPayments(req, res) {
@@ -55,10 +56,21 @@ async function handlerUpdatePayment(req, res) {
   }
 }
 
+async function handlerCheckoutCard(req, res) {
+  const { paymentMethod, amount } = req.body;
+  try {
+    const payment = await checkoutPayment(paymentMethod, amount);
+    res.status(201).json(payment);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
 module.exports = {
   handlerAllPayments,
   handlerCreatePayment,
   handlerOnePayment,
   handlerDeletePayment,
   handlerUpdatePayment,
+  handlerCheckoutCard,
 };
