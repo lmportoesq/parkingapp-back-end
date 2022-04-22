@@ -4,23 +4,11 @@ const {
   getOnePayment,
   deletePayment,
   updatePayment,
-  checkoutPayment,
 } = require('./payments.services');
 
 async function handlerAllPayments(req, res) {
   const payments = await getAllPayments();
   res.json(payments);
-}
-
-async function handlerCreatePayment(req, res) {
-  const newPayment = req.body;
-
-  try {
-    const payment = await createPayment(newPayment);
-    res.status(201).json(payment);
-  } catch (error) {
-    res.status(500).json(error);
-  }
 }
 
 async function handlerOnePayment(req, res) {
@@ -56,10 +44,10 @@ async function handlerUpdatePayment(req, res) {
   }
 }
 
-async function handlerCheckoutCard(req, res) {
+async function handlerCreatePayment(req, res) {
   const { paymentMethod, amount } = req.body;
   try {
-    const payment = await checkoutPayment(paymentMethod, amount);
+    const payment = await createPayment(paymentMethod, amount);
     res.status(201).json(payment);
   } catch (error) {
     res.status(500).json(error);
@@ -72,5 +60,4 @@ module.exports = {
   handlerOnePayment,
   handlerDeletePayment,
   handlerUpdatePayment,
-  handlerCheckoutCard,
 };

@@ -6,7 +6,6 @@ const {
   handlerOnePayment,
   handlerDeletePayment,
   handlerUpdatePayment,
-  handlerCheckoutCard,
 } = require('./payments.controller');
 
 const router = Router();
@@ -16,6 +15,5 @@ router.post('/', handlerCreatePayment);
 router.get('/:id', handlerOnePayment);
 router.delete('/:id', handlerDeletePayment);
 router.patch('/:id', handlerUpdatePayment);
-router.post('/', handlerCheckoutCard);
 
 module.exports = router;

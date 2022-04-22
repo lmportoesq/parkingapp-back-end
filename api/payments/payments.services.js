@@ -7,10 +7,10 @@ function getAllPayments() {
   return PaymentsModel.find();
 }
 
-function createPayment(newPayment) {
-  const payment = PaymentsModel.create(newPayment);
-  return payment;
-}
+// function createPayment(newPayment) {
+//   const payment = PaymentsModel.create(newPayment);
+//   return payment;
+// }
 
 async function getOnePayment(id) {
   const payment = await PaymentsModel.findById(id);
@@ -37,20 +37,32 @@ async function updatePayment(id, newInfo) {
   return updateInfo;
 }
 
-async function checkoutPayment(paymentMethod, amount) {
-  // const { id, card } = paymentMethod;
-  const { id } = paymentMethod;
-  const payment = await stripe.paymentIntents.create({
-    payment_method: id,
-    amount,
-    currency: 'usd',
-    confirm: true,
-    description: 'Example charge',
-  });
-  if (!payment) {
-    return null;
+async function createPayment(paymentMethod, amount) {
+  const { id, card } = paymentMethod;
+  try {
+    const payment = await stripe.paymentIntents.create({
+      payment_method: id,
+      amount,
+      currency: 'usd',
+      confirm: true,
+      description: 'Example charge',
+    });
+
+    const registeredPayment = {
+      refId: payment.id,
+      dataPayment: Date(payment.created),
+      hourPayment: '20h00m',
+      valuePayment: amount,
+      methodPayment: card.funding,
+    };
+    // save the payment
+    const paymentReg = await PaymentsModel.create(registeredPayment);
+
+    return paymentReg;
+  } catch (error) {
+    console.log('ERROR', error);
+    throw error;
   }
-  return payment;
 }
 
 module.exports = {
@@ -59,5 +71,5 @@ module.exports = {
   getOnePayment,
   deletePayment,
   updatePayment,
-  checkoutPayment,
+  // checkoutPayment,
 };
