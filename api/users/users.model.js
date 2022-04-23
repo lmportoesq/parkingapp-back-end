@@ -37,6 +37,20 @@ const UserSchema = new mongoose.Schema({
     enum: ['admin', 'maker', 'user'],
     required: true,
   },
+  payment: {
+    customerId: String,
+    cards: [
+      {
+        paymentMethodId: String,
+        brand: String, // visa, mastercard ...
+        country: String,
+        exp_month: Number,
+        exp_year: Number,
+        funding: String, // credit, debit
+        last4: String,
+      }
+    ]
+  },
   passwordResetToken: String,
   passwordResetExpires: Date,
 }, {
