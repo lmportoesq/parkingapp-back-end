@@ -40,6 +40,11 @@ const PaymentsSchema = new mongoose.Schema({
     // require: true,
     default: false,
   },
+  userId: {
+    type: ObjectId,
+    ref: 'users',
+    required: true,
+  },
 }, {
   timestamps: true,
   versionKey: false,

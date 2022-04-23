@@ -7,10 +7,10 @@ function getAllPayments() {
   return PaymentsModel.find();
 }
 
-// function createPayment(newPayment) {
-//   const payment = PaymentsModel.create(newPayment);
-//   return payment;
-// }
+function createPayment(newPayment) {
+  const payment = PaymentsModel.create(newPayment);
+  return payment;
+}
 
 async function getOnePayment(id) {
   const payment = await PaymentsModel.findById(id);
@@ -37,8 +37,21 @@ async function updatePayment(id, newInfo) {
   return updateInfo;
 }
 
-async function createPayment(paymentMethod, amount) {
-  const { id, card } = paymentMethod;
+async function createCustomer(user, paymentMethod) {
+  try {
+    const customer = await stripe.customers.create({
+      email: user.email,
+      name: `${user.firstName} ${user.lastName}`,
+      payment_method: paymentMethod.id,
+    });
+    return customer;
+  } catch (error) {
+    return null;
+  }
+}
+
+async function makePayment({ paymentMethod, amount, customer }) {
+  const { id } = paymentMethod;
   try {
     const payment = await stripe.paymentIntents.create({
       payment_method: id,
@@ -46,19 +59,11 @@ async function createPayment(paymentMethod, amount) {
       currency: 'usd',
       confirm: true,
       description: 'Example charge',
+      // eslint-disable-next-line no-underscore-dangle
+      customer: customer.id,
     });
 
-    const registeredPayment = {
-      refId: payment.id,
-      dataPayment: Date(payment.created),
-      hourPayment: '20h00m',
-      valuePayment: amount,
-      methodPayment: card.funding,
-    };
-    // save the payment
-    const paymentReg = await PaymentsModel.create(registeredPayment);
-
-    return paymentReg;
+    return payment;
   } catch (error) {
     console.log('ERROR', error);
     throw error;
@@ -71,5 +76,7 @@ module.exports = {
   getOnePayment,
   deletePayment,
   updatePayment,
+  createCustomer,
+  makePayment,
   // checkoutPayment,
 };
