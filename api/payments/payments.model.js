@@ -8,16 +8,21 @@ const PaymentsSchema = new mongoose.Schema({
     type: ObjectId,
     ref: 'bookings',
   },
+  refId: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   dataPayment: {
     type: Date,
-    required: true,
-    default: Date.now,
+    // required: true,
+    // default: Date.now,
     uppercase: true,
     trim: true,
   },
   hourPayment: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
   },
   valuePayment: {
@@ -26,14 +31,19 @@ const PaymentsSchema = new mongoose.Schema({
   },
   methodPayment: {
     type: String,
-    require: true,
+    // require: true,
     enum: ['credit', 'cash', 'debit'],
-    default: 'debit',
+    // default: 'debit',
   },
   statusPayment: {
     type: Boolean,
-    require: true,
+    // require: true,
     default: false,
+  },
+  userId: {
+    type: ObjectId,
+    ref: 'users',
+    required: true,
   },
 }, {
   timestamps: true,
