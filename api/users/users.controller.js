@@ -24,7 +24,7 @@ async function handlerCreateUser(req, res) {
     const user = await createUser(newUser);
     console.log(user.email);
     const data={
-      from:'"no-reply" <jlopezsa@gmail.com>',
+      from:'"no-reply" <parkingappsince2022@gmail.com>',
       to: user.email,
       subject: 'Active your account template',
       template_id: 'd-dc043ce4c5df454fb0d9395636b058ea',
