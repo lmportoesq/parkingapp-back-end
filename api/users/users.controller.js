@@ -23,7 +23,7 @@ async function handlerCreateUser(req, res) {
 
     const user = await createUser(newUser);
     //
-    const email={
+    const data={
       from:'"no-reply" <lmportoesq@gmail.com>',
       to: user.email,
       subject: 'Active your account template',
@@ -35,7 +35,7 @@ async function handlerCreateUser(req, res) {
       },
     };
 
-    await sendMailSendGrid(email);
+    await sendMailSendGrid(data);
     //
     res.status(201).json(user);
   } catch (error) {
