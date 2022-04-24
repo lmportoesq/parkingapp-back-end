@@ -8,10 +8,12 @@ const {
   handlerUpdatePayment,
 } = require('./payments.controller');
 
+const { isAuthenticated } = require('../../auth/auth.service');
+
 const router = Router();
 
 router.get('/', handlerAllPayments);
-router.post('/', handlerCreatePayment);
+router.post('/', isAuthenticated(), handlerCreatePayment);
 router.get('/:id', handlerOnePayment);
 router.delete('/:id', handlerDeletePayment);
 router.patch('/:id', handlerUpdatePayment);
