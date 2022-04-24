@@ -8,11 +8,35 @@ const {
   deleteUser,
 } = require('./users.services');
 
+const crypto=require('crypto');
+const { sendMailSendGrid } =require('../../utils/emails');
+
 async function handlerCreateUser(req, res) {
   const newUser = req.body;
   try {
-    const user = await createUser(newUser);
+    //creacion de correo
+    const hash=crypto.createHash('sha256') //
+    .update(newUser.email) //
+    .digest('hex'); //
+    newUser.passwordResetToken=hash; //
+    newUser.passwordResetExpires=Date.now()+3600000*24; //
 
+    const user = await createUser(newUser);
+    console.log(user.email);
+    const data={
+      from:'"no-reply" <parkingappsince2022@gmail.com>',
+      to: user.email,
+      subject: 'Active your account template',
+      template_id: 'd-dc043ce4c5df454fb0d9395636b058ea',
+      dynamic_template_data:{
+        firstName:user.firstName,
+        lastName:user.lastName,
+        url:`http://localhost:3000/activate/${hash}`
+      },
+    };
+
+    await sendMailSendGrid(data);
+    //
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json(error);
@@ -59,7 +83,7 @@ async function handlerUpdateUser(req, res) {
 }
 
 async function handlerDeleteUser(req, res) {
-  const { id } = req.body;
+  const { id } = req.params;
   console.log('Id enviado es ',id);
   const user = await deleteUser(id);
 
