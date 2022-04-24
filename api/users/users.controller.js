@@ -22,7 +22,7 @@ async function handlerCreateUser(req, res) {
     newUser.passwordResetExpires=Date.now()+3600000*24; //
 
     const user = await createUser(newUser);
-    //
+    console.log(user.email);
     const data={
       from:'"no-reply" <jlopezsa@gmail.com>',
       to: user.email,
