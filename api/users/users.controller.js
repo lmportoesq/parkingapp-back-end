@@ -15,19 +15,19 @@ async function handlerCreateUser(req, res) {
   const newUser = req.body;
   try {
     //creacion de correo
-    const hash=crypto.createHash('sha256')
-    .update(newUser.email)
-    .digest('hex');
-    newUser.passwordResetToken=hash;
-    newUser.passwordResetExpires=Date.now()+3600000*24;
+    const hash=crypto.createHash('sha256') //
+    .update(newUser.email) //
+    .digest('hex'); //
+    newUser.passwordResetToken=hash; //
+    newUser.passwordResetExpires=Date.now()+3600000*24; //
 
     const user = await createUser(newUser);
-
+    //
     const email={
       from:'"no-reply" <lmportoesq@gmail.com>',
       to: user.email,
       subject: 'Active your account template',
-      template_id: 'aqui viene el id del sendGrid',
+      template_id: 'd-0f5fde29649b4b48bd523903c51837db',
       dynamic_template_data:{
         firstName:user.firstName,
         lastName:user.lastName,
@@ -36,7 +36,7 @@ async function handlerCreateUser(req, res) {
     };
 
     await sendMailSendGrid(email);
-
+    //
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json(error);
