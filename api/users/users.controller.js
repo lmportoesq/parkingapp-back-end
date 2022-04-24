@@ -27,7 +27,7 @@ async function handlerCreateUser(req, res) {
       from:'"no-reply" <lmportoesq@gmail.com>',
       to: user.email,
       subject: 'Active your account template',
-      template_id: 'd-0f5fde29649b4b48bd523903c51837db',
+      template_id: 'd-dc043ce4c5df454fb0d9395636b058ea',
       dynamic_template_data:{
         firstName:user.firstName,
         lastName:user.lastName,
