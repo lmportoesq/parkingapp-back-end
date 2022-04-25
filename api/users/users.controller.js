@@ -6,20 +6,21 @@ const {
   getUserById,
   updateUser,
   deleteUser,
+  findOneUser,
 } = require('./users.services');
 
 const crypto=require('crypto');
 const { sendMailSendGrid } =require('../../utils/emails');
+const { signToken } = require('../../auth/auth.service');
 
 async function handlerCreateUser(req, res) {
   const newUser = req.body;
   try {
-    //creacion de correo
-    const hash=crypto.createHash('sha256') //
-    .update(newUser.email) //
-    .digest('hex'); //
-    newUser.passwordResetToken=hash; //
-    newUser.passwordResetExpires=Date.now()+3600000*24; //
+    const hash=crypto.createHash('sha256')
+    .update(newUser.email)
+    .digest('hex');
+    newUser.passwordResetToken=hash;
+    newUser.passwordResetExpires=Date.now()+3600000*24;
 
     const user = await createUser(newUser);
     console.log(user.email);
@@ -36,7 +37,7 @@ async function handlerCreateUser(req, res) {
     };
 
     await sendMailSendGrid(data);
-    //
+
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json(error);
@@ -94,6 +95,29 @@ async function handlerDeleteUser(req, res) {
   return res.status(200).json({message:'Usuario fue eliminado...!'});
 }
 
+async function handlerVerifyAccount(req, res) {
+  const {token} = req.params;
+  try {
+    const user = await findOneUser({passwordResetToken:token});
+    if(!user) {
+      return res.status(400).json({message:'Invalid token'});
+    }
+    if(Date.now()> user.passwordResetExpires){
+      return res.status(400).json({message:'Token expired'});
+    }
+    user.isActivate = true;
+    user.passwordResetToken = null;
+    user.passwordResetExpires = null;
+
+    await user.save();
+
+    const jwtToken = signToken(user.profile);
+    return res.status(200).json({message:'Account verified',token:jwtToken});
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+}
+
 module.exports = {
   handlerCreateUser,
   handlerGetAllUsers,
@@ -101,4 +125,5 @@ module.exports = {
   handlerGetOneUser,
   handlerUpdateUser,
   handlerDeleteUser,
+  handlerVerifyAccount,
 };
