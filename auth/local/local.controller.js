@@ -35,7 +35,7 @@ async function handlerVerifyAccount(req, res) {
     if(Date.now()> user.passwordResetExpires){
       return res.status(400).json({ message: 'Token expired' });
     }
-    user.isActivate = true;
+    user.isActive = true;
     user.passwordResetToken = null;
     user.passwordResetExpires = null;
 
