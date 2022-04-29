@@ -14,7 +14,7 @@ const PaymentsSchema = new mongoose.Schema({
     trim: true,
   },
   dataPayment: {
-    type: Date,
+    type: String,
     // required: true,
     // default: Date.now,
     uppercase: true,
