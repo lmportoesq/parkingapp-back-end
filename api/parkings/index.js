@@ -15,6 +15,7 @@ router.get('/', handlerAllParkings);
 router.get('/:id', handlerOneParking);
 router.delete('/:id', hasRole(['admin']), handlerDeleteParking);
 router.post('/', hasRole(['admin']), handlerCreateParking);
+
 router.patch('/:id', hasRole(['admin']), handlerUpdateParking);
 
 module.exports = router;

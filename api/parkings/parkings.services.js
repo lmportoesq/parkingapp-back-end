@@ -20,8 +20,10 @@ async function deleteParking(id) {
   return parking;
 }
 
-function createParking(newParking) {
-  const parking = ParkingsModel.create(newParking);
+async function createParking(newParking) {
+  const parking = await ParkingsModel.create(newParking);
+  console.log('FLAGG-02');
+  // ParkingsModel.name = 'HARCOD';
   return parking;
 }
 
