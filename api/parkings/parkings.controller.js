@@ -1,5 +1,3 @@
-const cloudinary = require('cloudinary').v2;
-const fs = require('fs');
 const {
   getAllParkings,
   getOneParking,
@@ -47,7 +45,7 @@ async function handlerCreateParking(req, res) {
     const parking = await createParking(newParking);
     res.status(201).json(parking);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(503).json(error);
   }
 }
 
