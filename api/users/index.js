@@ -1,4 +1,3 @@
-/* eslint-disable */
 const { Router } = require('express');
 const {
   handlerCreateUser,
@@ -6,13 +5,12 @@ const {
   handlerGetOneUser,
   handlerUpdateUser,
   handlerDeleteUser,
+
 } = require('./users.controller');
 const { isAuthenticated } = require('../../auth/auth.service');
-//const { handlerLoginUser }=require('../../auth/local/local.controller');
 
 const router = Router();
 router.post('/', handlerCreateUser);
-
 router.get('/', handlerGetAllUsers);
 router.get('/:id', handlerGetOneUser);
 router.patch('/:id', handlerUpdateUser);
