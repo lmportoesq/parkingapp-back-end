@@ -43,9 +43,15 @@ async function handlerCreateUser(req, res) {
 }
 
 async function handlerGetAllUsers(req, res) {
-  const users = await getAllUsers();
-
-  res.status(201).json(users);
+  const filterConditions = req.query;
+  if (Object.keys(filterConditions).length === 0) {
+    const users = await getAllUsers();
+    res.status(201).json(users);
+  } else {
+    const { email } = filterConditions;
+    const users = await getUserByEmail(email);
+    res.status(201).json(users);
+  }
 }
 
 async function handlerGetUserByEmail(req, res) {
@@ -55,7 +61,6 @@ async function handlerGetUserByEmail(req, res) {
   if (!user) {
     return res.status(404);
   }
-
   return res.status(200).json(user);
 }
 

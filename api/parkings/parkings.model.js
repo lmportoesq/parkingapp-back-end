@@ -61,6 +61,9 @@ const ParkingSchema = new mongoose.Schema({
   busyPlaces: {
     type: Number,
   },
+  image: {
+    type: String,
+  },
 }, {
   timestamps: true,
   versionKey: false,

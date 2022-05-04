@@ -20,8 +20,9 @@ async function deleteParking(id) {
   return parking;
 }
 
-function createParking(newParking) {
-  const parking = ParkingsModel.create(newParking);
+async function createParking(newParking) {
+  const parking = await ParkingsModel.create(newParking);
+  // ParkingsModel.name = 'HARCOD';
   return parking;
 }
 
@@ -42,6 +43,14 @@ async function getParkingsByFilter(filterConditions) {
   return parkingsFiltered;
 }
 
+async function getParkingsByFilterAdmin(filterConditions) {
+  const parkingsFiltered = await ParkingsModel.find(filterConditions);
+  if (!parkingsFiltered) {
+    return null;
+  }
+  return parkingsFiltered;
+}
+
 module.exports = {
   getAllParkings,
   getOneParking,
@@ -49,4 +58,5 @@ module.exports = {
   createParking,
   updateParking,
   getParkingsByFilter,
+  getParkingsByFilterAdmin,
 };

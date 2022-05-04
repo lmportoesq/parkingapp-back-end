@@ -3,6 +3,7 @@ const bookings = require('./api/bookings');
 const payments = require('./api/payments');
 const users = require('./api/users');
 const authLocal = require('./auth/local');
+const upload = require('./api/upload');
 
 function routes(app) {
   // API Routes
@@ -10,7 +11,7 @@ function routes(app) {
   app.use('/api/bookings', bookings);
   app.use('/api/payments', payments);
   app.use('/api/users', users);
-
+  app.use('/api/upload', upload);
   // auth Routes
   app.use('/auth/local', authLocal);
 }
