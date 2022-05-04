@@ -61,10 +61,18 @@ async function handlerUpdateParking(req, res) {
   }
 }
 
+async function handlerAllParkingsByAdmin(req, res) {
+  const { user } = req;
+  const filterConditions = { user: user._id };
+  const parkings = await getParkingsByFilter(filterConditions);
+  res.json(parkings);
+}
+
 module.exports = {
   handlerAllParkings,
   handlerOneParking,
   handlerDeleteParking,
   handlerCreateParking,
   handlerUpdateParking,
+  handlerAllParkingsByAdmin,
 };
