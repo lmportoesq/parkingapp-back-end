@@ -23,6 +23,7 @@ async function findOneUser(query) {
 
 async function getUserByEmail(email) {
   const user = await User.findOne({ email });
+  console.log('SERVICE: ', user)
   return user;
 }
 
