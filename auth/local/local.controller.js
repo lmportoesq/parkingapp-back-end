@@ -18,8 +18,8 @@ async function handlerLoginUser(req, res) {
     }
 
     const token = signToken(user.profile);
-
-    return res.status(200).json({ token, profile: user.profile });
+    console.log('CONTROLLER: ', user._id);
+    return res.status(200).json({ token, profile: user.profile, id: user._id});
   } catch (error) {
     return res.status(400).json(error);
   }
