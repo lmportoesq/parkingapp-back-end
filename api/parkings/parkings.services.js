@@ -21,9 +21,12 @@ async function deleteParking(id) {
 }
 
 async function createParking(newParking) {
-  const parking = await ParkingsModel.create(newParking);
-  // ParkingsModel.name = 'HARCOD';
-  return parking;
+  try {
+    const parking = await ParkingsModel.create(newParking);
+    return parking;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 async function updateParking(id, newInfo) {

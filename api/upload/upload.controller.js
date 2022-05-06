@@ -20,7 +20,7 @@ async function handlerCreateImage(req, res) {
     const result = await uploadImage(file.path);
     res.status(200).json(result);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(501).json(error);
   }
 }
 
