@@ -72,8 +72,8 @@ async function handlerCreatePayment(req, res) {
     const registeredPayment = {
       refId: payment.id,
       dataPayment: Date(payment.created),
-      hourPayment: '20h00m',
-      valuePayment: amount,
+      hourPayment: '0:0:0',
+      valuePayment: amount / 100,
       methodPayment: card.funding,
       userId: req.user._id,
     };

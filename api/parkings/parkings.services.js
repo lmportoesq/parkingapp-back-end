@@ -20,9 +20,13 @@ async function deleteParking(id) {
   return parking;
 }
 
-function createParking(newParking) {
-  const parking = ParkingsModel.create(newParking);
-  return parking;
+async function createParking(newParking) {
+  try {
+    const parking = await ParkingsModel.create(newParking);
+    return parking;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 async function updateParking(id, newInfo) {
@@ -42,6 +46,14 @@ async function getParkingsByFilter(filterConditions) {
   return parkingsFiltered;
 }
 
+async function getParkingsByFilterAdmin(filterConditions) {
+  const parkingsFiltered = await ParkingsModel.find(filterConditions);
+  if (!parkingsFiltered) {
+    return null;
+  }
+  return parkingsFiltered;
+}
+
 module.exports = {
   getAllParkings,
   getOneParking,
@@ -49,4 +61,5 @@ module.exports = {
   createParking,
   updateParking,
   getParkingsByFilter,
+  getParkingsByFilterAdmin,
 };

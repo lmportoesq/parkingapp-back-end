@@ -5,6 +5,7 @@ const {
   handlerDeleteParking,
   handlerCreateParking,
   handlerUpdateParking,
+  handlerAllParkingsByAdmin,
 } = require('./parkings.controller');
 
 const { hasRole } = require('../../auth/auth.service');
@@ -12,6 +13,7 @@ const { hasRole } = require('../../auth/auth.service');
 const router = Router();
 
 router.get('/', handlerAllParkings);
+router.get('/byadmin', hasRole(['admin']), handlerAllParkingsByAdmin);
 router.get('/:id', handlerOneParking);
 router.delete('/:id', hasRole(['admin']), handlerDeleteParking);
 router.post('/', hasRole(['admin']), handlerCreateParking);

@@ -5,6 +5,7 @@ const {
   createParking,
   updateParking,
   getParkingsByFilter,
+  getParkingsByFilterAdmin,
 } = require('./parkings.services');
 
 async function handlerAllParkings(req, res) {
@@ -60,10 +61,18 @@ async function handlerUpdateParking(req, res) {
   }
 }
 
+async function handlerAllParkingsByAdmin(req, res) {
+  const { user } = req;
+  const filterConditions = { user: user._id };
+  const parkings = await getParkingsByFilterAdmin(filterConditions);
+  res.json(parkings);
+}
+
 module.exports = {
   handlerAllParkings,
   handlerOneParking,
   handlerDeleteParking,
   handlerCreateParking,
   handlerUpdateParking,
+  handlerAllParkingsByAdmin,
 };

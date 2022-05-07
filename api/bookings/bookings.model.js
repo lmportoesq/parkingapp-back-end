@@ -1,41 +1,41 @@
 const mongoose = require('mongoose');
 
-const BookingSchema=new mongoose.Schema({
-  parking:{
-      type:String,
+const BookingSchema = new mongoose.Schema({
+  parking: {
+    type: String,
   },
-  user:{
-      type:String,
+  user: {
+    type: String,
   },
-  market:{
-      type:Number,
-      require:true,
+  market: {
+    type: Number,
+    require: true,
   },
-  startDate:{
-      type:Date,
-      require:true,
+  startDate: {
+    type: Date,
+    require: true,
   },
-  endDate:{
-      type:Date,
-      require:true,
+  endDate: {
+    type: Date,
+    require: true,
   },
-  startTime:{
-      type:Date,
-      require:true,
+  startTime: {
+    type: Date,
+    require: true,
   },
-  endTime:{
-      type:Date,
-      require:true,
+  endTime: {
+    type: Date,
+    require: true,
   },
-  observations:{
-      type:String,
-      trim:true,
-  }
-},{
+  observations: {
+    type: String,
+    trim: true,
+  },
+}, {
   timestamps: true,
   versionKey: false,
 });
 
-const Booking = mongoose.model('Booking',BookingSchema);
+const Booking = mongoose.model('Booking', BookingSchema);
 
-module.exports=Booking;
+module.exports = Booking;

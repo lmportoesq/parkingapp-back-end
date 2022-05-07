@@ -7,7 +7,11 @@ const app = require('../../app');
 const request = supertest(app);
 
 describe('Test to api parkings endpoints', () => {
+<<<<<<< HEAD
   describe('GET /parkings', () => {
+=======
+  describe('GET all /parkings', () => {
+>>>>>>> develop
     test('should respond with a 200 status code', async () => {
       const res = await request.get('/api/parkings');
 

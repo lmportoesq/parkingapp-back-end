@@ -21,7 +21,7 @@ async function handlerOneBooking(req, res) {
   }
 }
 
-async function handlerDeleteBooking (req, res) {
+async function handlerDeleteBooking(req, res) {
   const { id } = req.params;
   const booking = await deleteBooking(id);
   if (!booking) {
@@ -33,22 +33,22 @@ async function handlerDeleteBooking (req, res) {
 
 async function handlerCreateBooking(req, res) {
   const newBooking = req.body;
-  try{
+  try {
     const booking = await createBooking(newBooking);
     res.status(201).json(booking);
-  }catch (error) {
+  } catch (error) {
     res.status(500).json(error);
   }
 }
 
 async function handlerUpdateBooking(req, res) {
   const newInfo = req.body;
-  const {id} = req.params;
+  const { id } = req.params;
   try {
     const booking = await updateBooking(id, newInfo);
     res.status(201).json(booking);
-  } catch (erro){
-    res.status(500).json({ message: `Booking with id: ${id} can't be ubdate`})
+  } catch (erro) {
+    res.status(500).json({ message: `Booking with id: ${id} can't be ubdate` });
   }
 }
 module.exports = {

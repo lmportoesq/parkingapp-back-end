@@ -1,4 +1,5 @@
-const { getUserByEmail } = require('../../api/users/users.services');
+/* eslint-disable */
+const { getUserByEmail, findOneUser } = require('../../api/users/users.services');
 const { signToken } = require('../auth.service');
 
 async function handlerLoginUser(req, res) {
@@ -17,8 +18,30 @@ async function handlerLoginUser(req, res) {
     }
 
     const token = signToken(user.profile);
+    return res.status(200).json({ token, profile: user.profile, id: user._id});
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+}
 
-    return res.status(200).json(token);
+async function handlerVerifyAccount(req, res) {
+  const { token } = req.params;
+  try {
+    const user = await findOneUser({passwordResetToken:token});
+    if(!user) {
+      return res.status(400).json({ message: 'Invalid token' });
+    }
+    if(Date.now()> user.passwordResetExpires){
+      return res.status(400).json({ message: 'Token expired' });
+    }
+    user.isActive = true;
+    user.passwordResetToken = null;
+    user.passwordResetExpires = null;
+
+    await user.save();
+
+    const jwtToken = signToken(user.profile);
+    return res.status(200).json({ message: 'Account verified',token:jwtToken });
   } catch (error) {
     return res.status(400).json(error);
   }
@@ -26,4 +49,5 @@ async function handlerLoginUser(req, res) {
 
 module.exports = {
   handlerLoginUser,
+  handlerVerifyAccount,
 };

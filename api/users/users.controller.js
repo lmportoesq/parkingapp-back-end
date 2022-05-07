@@ -14,12 +14,11 @@ const { sendMailSendGrid } =require('../../utils/emails');
 async function handlerCreateUser(req, res) {
   const newUser = req.body;
   try {
-    //creacion de correo
-    const hash=crypto.createHash('sha256') //
-    .update(newUser.email) //
-    .digest('hex'); //
-    newUser.passwordResetToken=hash; //
-    newUser.passwordResetExpires=Date.now()+3600000*24; //
+    const hash=crypto.createHash('sha256')
+    .update(newUser.email)
+    .digest('hex');
+    newUser.passwordResetToken=hash;
+    newUser.passwordResetExpires=Date.now()+3600000*24;
 
     const user = await createUser(newUser);
     console.log(user.email);
@@ -36,7 +35,7 @@ async function handlerCreateUser(req, res) {
     };
 
     await sendMailSendGrid(data);
-    //
+
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json(error);
@@ -44,9 +43,15 @@ async function handlerCreateUser(req, res) {
 }
 
 async function handlerGetAllUsers(req, res) {
-  const users = await getAllUsers();
-
-  res.status(201).json(users);
+  const filterConditions = req.query;
+  if (Object.keys(filterConditions).length === 0) {
+    const users = await getAllUsers();
+    res.status(201).json(users);
+  } else {
+    const { email } = filterConditions;
+    const users = await getUserByEmail(email);
+    res.status(201).json(users);
+  }
 }
 
 async function handlerGetUserByEmail(req, res) {
@@ -56,7 +61,6 @@ async function handlerGetUserByEmail(req, res) {
   if (!user) {
     return res.status(404);
   }
-
   return res.status(200).json(user);
 }
 
