@@ -30,7 +30,7 @@ async function handlerCreateUser(req, res) {
       dynamic_template_data:{
         firstName:user.firstName,
         lastName:user.lastName,
-        url:`http://localhost:3000/activate/${hash}`
+        url:`https://parkingappreal.netlify.app/activate/${hash}`
       },
     };
 
